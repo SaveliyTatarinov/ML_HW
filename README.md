@@ -1,5 +1,9 @@
-# ML_HW_1
-vetka2
+# ML_HW_2
+
+## Setup environment
+
+Для установки среды окружения необходимо запустить файл setup_environment.sh
+
 <a target="_blank" href="https://cookiecutter-data-science.drivendata.org/">
     <img src="https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter" />
 </a>
