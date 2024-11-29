@@ -11,7 +11,7 @@
    ```
    make upload-data
    ```
-4. С помощью данной команды вы обработаете тестовый файл и положите его новую обработанную версию (ds_job_new.csv) в minio:
+4. С помощью данной команды вы обработаете тестовый файл и положите его новую обработанную версию (weather_forecast_data_processed.csv) в minio:
    ```
    make process-data
    ```
@@ -28,11 +28,14 @@
    ```
    make run-experiments
    ```
-   (в данном примере взята обычная LinearRegression)
+   (в данном примере взята обычная LogisticRegression)
    Мои эксперименты: https://wandb.ai/savelij-tatarinov-urfu/ml_experiments/workspace
 
 8. В конце загружаем все эксперименты в s3
-
+   ```
+   make upload-results
+   ```
+   
 <a target="_blank" href="https://cookiecutter-data-science.drivendata.org/">
     <img src="https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter" />
 </a>
