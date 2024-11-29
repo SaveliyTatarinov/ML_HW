@@ -5,27 +5,35 @@
 PROJECT_NAME = ML_HW
 PYTHON_VERSION = 3.10
 PYTHON_INTERPRETER = python
+DOWNLOAD_SCRIPT=bucket_s3/download_s3.py
+DOWNLOAD_PATH=data/processed/weather_forecast_data_processed.csv
 
 #################################################################################
 # COMMANDS                                                                      #
 #################################################################################
-
 setup:
 	poetry install
 	docker-compose up -d
 
+build-trainer-image:
+	docker build -f Dockerfile -t trainer:latest .
+
 upload-data:
 	poetry run python bucket_s3/create_bucket.py ; \
-	poetry run python bucket_s3/upload_to_s3.py --bucket data-bucket --file_path data/raw/data_science_job.csv
+	poetry run python bucket_s3/upload_to_s3.py --bucket data-bucket --file_path data/raw/weather_forecast_data.csv
 
 process-data:
-	poetry run python bucket_s3/process_data.py --bucket data-bucket --input_path data_science_job.csv --output_path ds_job_new.csv
+	poetry run python ml_hw_4/modeling/process_data.py --bucket data-bucket --input_path weather_forecast_data.csv --output_path weather_forecast_data_processed.csv
 
-## Delete all compiled Python files
-.PHONY: clean
-clean:
-	find . -type f -name "*.py[co]" -delete
-	find . -type d -name "__pycache__" -delete
+download processed-data:
+	poetry run python $(DOWNLOAD_SCRIPT) --bucket data-bucket --object_name weather_forecast_data_processed.csv --download_path $(DOWNLOAD_PATH)
+
+run-experiments:
+	bash ml_hw_4/modeling/train_exp.sh models/model_config.json experiment_name
+
+upload-results:
+	poetry run python ml_hw_4/modeling/upload_results.py --bucket data-bucket --directory output
+
 
 ## Lint using flake8 and black (use `make format` to do formatting)
 .PHONY: lint

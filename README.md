@@ -1,4 +1,4 @@
-# ML_HW_3
+# ML_HW_4
 
 ## Setup environment
 
@@ -7,7 +7,7 @@
    ```
    make setup
    ```
-3. Затем создадите бакет и загрузите тестовый файл (data_science_job.csv) в minio с помощью команды:
+3. Затем создадите бакет и загрузите тестовый файл (weather_forecast_data.csv) в minio с помощью команды:
    ```
    make upload-data
    ```
@@ -15,9 +15,23 @@
    ```
    make process-data
    ```
-   (Данная команда создаст в датасете дополнительный столбец. 
-   Для дальнейшей разработки необходимо изменить скрипт в bucket_s3/process_data.py
-   Вы также можете изменить файл с данными в data/raw и затем изменить название файла в Makefile)
+   (Вы можете изменить файл с данными в data/raw и затем изменить название файла в Makefile)
+5. Затем сбилдите Dockerfile
+   ```
+   make build-trainer-image
+   ```
+6. Переносим обработанный датасет в data/process 
+   ```
+   make download processed-data
+   ```
+7. Затем запускаем обучение модели на разных параметрах 
+   ```
+   make run-experiments
+   ```
+   (в данном примере взята обычная LinearRegression)
+   Мои эксперименты: https://wandb.ai/savelij-tatarinov-urfu/ml_experiments/workspace
+
+8. В конце загружаем все эксперименты в s3
 
 <a target="_blank" href="https://cookiecutter-data-science.drivendata.org/">
     <img src="https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter" />
