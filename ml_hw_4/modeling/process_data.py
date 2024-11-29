@@ -19,7 +19,9 @@ def download_file_from_s3(bucket, object_name):
     return file_stream
 def process_data(input_data):
     df = pd.read_csv(input_data)
-    df['One_country'] = np.where((df['employee_residence'] == df['company_location']), 1, 0)
+    df = df.drop_duplicates()
+    df['Rain'] = np.where((df['Rain'] == "rain"), 1, 0)
+    df['Temperature'] = df['Temperature'] * 1.8 + 32
     return df
 def save_data_to_s3(dataframe, bucket, output_path):
     csv_buffer = BytesIO()
