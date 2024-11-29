@@ -1,10 +1,29 @@
-# ML_HW_1
-vetka2
+# ML_HW_3
+
+## Setup environment
+
+1. Создайте .env файл в корневой директории проекта (в репозитории представлен .env_test, который вы можете взять в качестве основы);
+2. Затем поднимите minio в контейнере с помощью команды:
+   ```
+   make setup
+   ```
+3. Затем создадите бакет и загрузите тестовый файл (data_science_job.csv) в minio с помощью команды:
+   ```
+   make upload-data
+   ```
+4. С помощью данной команды вы обработаете тестовый файл и положите его новую обработанную версию (ds_job_new.csv) в minio:
+   ```
+   make process-data
+   ```
+   (Данная команда создаст в датасете дополнительный столбец. 
+   Для дальнейшей разработки необходимо изменить скрипт в bucket_s3/process_data.py
+   Вы также можете изменить файл с данными в data/raw и затем изменить название файла в Makefile)
+
 <a target="_blank" href="https://cookiecutter-data-science.drivendata.org/">
     <img src="https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter" />
 </a>
 
-hw1
+hw3
 
 ## Project Organization
 
